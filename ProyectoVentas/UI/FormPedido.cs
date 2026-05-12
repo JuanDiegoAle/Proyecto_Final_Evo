@@ -74,6 +74,12 @@ namespace ProyectoVentas
                 return;
             }
 
+            if (total <= 0)
+            {
+                MessageBox.Show("El monto no puede ser negativo o cero");
+                return;
+            }
+
             IPago metodoPago;
             switch (cmbPago.Text)
             {
@@ -92,7 +98,7 @@ namespace ProyectoVentas
 
             if (!exito) return;
 
-            // 🔥 AQUI VIENE LA MAGIA
+
             if (txtTotal.Tag != null) // MODO EDITAR
             {
                 int id = (int)txtTotal.Tag;
@@ -124,7 +130,7 @@ namespace ProyectoVentas
                 MessageBox.Show("Pedido guardado correctamente");
             }
 
-            // 🔄 limpiar y refrescar
+           
             txtTotal.Text = "";
             cmbPago.SelectedIndex = -1;
             dgvPedidos.DataSource = repo.ObtenerTodos();
@@ -199,7 +205,7 @@ namespace ProyectoVentas
 
         private void btnExportar_Click(object sender, EventArgs e)
         {
-           Excel.Application excel= new Excel.Application();
+            Excel.Application excel= new Excel.Application();
 
             Excel.Workbook workbook = excel.Workbooks.Add();
 
