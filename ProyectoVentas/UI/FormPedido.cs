@@ -149,7 +149,9 @@ namespace ProyectoVentas
                 {
                     Id = id,
                     Total = total,
-                    MetodoPago = metodoPago.Nombre
+                    MetodoPago = metodoPago.Nombre,
+                    Cliente = txtCliente.Text,
+                    Usuario = usuario
                 };
 
                 repo.Actualizar(pedidoEditado);
@@ -157,6 +159,7 @@ namespace ProyectoVentas
                 MessageBox.Show("Pedido actualizado");
 
                 txtTotal.Tag = null; // limpiar modo edición
+                btnProcesar.Text = "Procesar";  
             }
             else // MODO CREAR
             {

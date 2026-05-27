@@ -153,17 +153,21 @@ namespace ProyectoVentas.Repository
                 conn.Open();
 
                 string query = @"
-                                UPDATE Pedido
-                                SET Total = @Total,
-                                    MetodoPago = @MetodoPago
-                                WHERE Id = @Id";
+            UPDATE Pedido
+            SET Total = @Total,
+                MetodoPago = @MetodoPago,
+                Cliente = @Cliente,
+                Usuario = @Usuario
+            WHERE Id = @Id";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@Total", pedido.Total);
                 cmd.Parameters.AddWithValue("@MetodoPago", pedido.MetodoPago);
+                cmd.Parameters.AddWithValue("@Cliente", pedido.Cliente); 
+                cmd.Parameters.AddWithValue("@Usuario", pedido.Usuario);
                 cmd.Parameters.AddWithValue("@Id", pedido.Id);
-                cmd.Parameters.AddWithValue("@Cliente", pedido.Cliente);
+
                 cmd.ExecuteNonQuery();
             }
         }
