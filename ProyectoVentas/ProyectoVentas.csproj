@@ -47,6 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDevolucionRepository.cs" />
+    <Compile Include="Models\Devolucion.cs" />
+    <Compile Include="Repository\DevolucionRepository.cs" />
+    <Compile Include="UI\FormDevolucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormDevolucion.Designer.cs">
+      <DependentUpon>FormDevolucion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IProductoRespository.cs" />
     <Compile Include="Models\DetallePedido.cs" />
     <Compile Include="Models\Producto.cs" />
@@ -90,6 +99,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\FormCarga.resx">
       <DependentUpon>FormCarga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormDevolucion.resx">
+      <DependentUpon>FormDevolucion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormGrafico.resx">
       <DependentUpon>FormGrafico.cs</DependentUpon>

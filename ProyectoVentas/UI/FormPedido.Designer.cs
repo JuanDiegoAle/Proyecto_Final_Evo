@@ -57,6 +57,7 @@
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtCantidad = new System.Windows.Forms.TextBox();
+            this.btnDevolucion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -336,11 +337,23 @@
             this.txtCantidad.Size = new System.Drawing.Size(100, 20);
             this.txtCantidad.TabIndex = 28;
             // 
+            // btnDevolucion
+            // 
+            this.btnDevolucion.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDevolucion.Location = new System.Drawing.Point(427, 214);
+            this.btnDevolucion.Name = "btnDevolucion";
+            this.btnDevolucion.Size = new System.Drawing.Size(146, 38);
+            this.btnDevolucion.TabIndex = 29;
+            this.btnDevolucion.Text = "Devolucion";
+            this.btnDevolucion.UseVisualStyleBackColor = true;
+            this.btnDevolucion.Click += new System.EventHandler(this.btnDevolucion_Click);
+            // 
             // FormPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(596, 580);
+            this.Controls.Add(this.btnDevolucion);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtCliente);
@@ -406,6 +419,7 @@
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtCantidad;
+        private System.Windows.Forms.Button btnDevolucion;
     }
 }
 

@@ -59,12 +59,12 @@ namespace ProyectoVentas
 
             if (rol == "vendedor")
             {
-                btnEliminar.Visible = false;
-                btnTotal.Visible = false;
-                btnAbrirGrafico.Visible = false;
-                btnExportar.Visible = false;
-                btnEditar.Visible = false;
-                lblTotal.Visible=false;
+                btnEliminar.Enabled = false;
+                btnTotal.Enabled = false;
+                btnAbrirGrafico.Enabled = false;
+                btnExportar.Enabled = false;
+                btnEditar.Enabled = false;
+                lblTotal.Enabled=false;
             }
         }
         private void txtCantidad_TextChanged(object sender, EventArgs e)
@@ -313,7 +313,7 @@ namespace ProyectoVentas
 
             txtPrecio.Text = p.Precio.ToString("0.00");
 
-            txtPrecio.Tag = p.Precio; // 🔥 CLAVE
+            txtPrecio.Tag = p.Precio; 
             txtCantidad_TextChanged(null, null);
         }
 
@@ -325,6 +325,14 @@ namespace ProyectoVentas
         private void txtTotal_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDevolucion_Click(object sender, EventArgs e)
+        {
+            IDevolucionRepository repoDev = new DevolucionRepository();
+
+            FormDevolucion form = new FormDevolucion(rol, usuario, repoDev);
+            form.ShowDialog();
         }
     }
 }
