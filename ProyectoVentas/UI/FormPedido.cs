@@ -24,15 +24,20 @@ namespace ProyectoVentas
         private string usuario;
         private IPagoService pagoService;
         private IPedidoRepository repo;
+        private IProductoRespository productoRepo;
 
-        public FormPedido(string rolUsuario, string nombreUsuario,IPedidoRepository repository,IPagoService pagoSrv)
+        public FormPedido(string rolUsuario, string nombreUsuario,IPedidoRepository repository,IPagoService pagoSrv,IProductoRespository productoRepo)
         {
             InitializeComponent();
             rol = rolUsuario;
             usuario = nombreUsuario;
+            this.productoRepo=productoRepo;
+        
 
             repo = repository;
             pagoService = pagoSrv;
+
+            txtCantidad.TextChanged += txtCantidad_TextChanged;
 
             cmbPago.Items.Add("Yape");
             cmbPago.Items.Add("Tarjeta");
@@ -42,10 +47,16 @@ namespace ProyectoVentas
             cmbFiltro.Items.Add("Yape");
             cmbFiltro.Items.Add("Tarjeta");
             cmbFiltro.Items.Add("Todos");
+
+            this.Load += FormPedido_Load;
+            comboProducto.SelectedIndexChanged += comboProducto_SelectedIndexChanged;
         }
 
         private void FormPedido_Load(object sender, EventArgs e)
         {
+           
+            CargarProductos();
+
             if (rol == "vendedor")
             {
                 btnEliminar.Visible = false;
@@ -55,6 +66,31 @@ namespace ProyectoVentas
                 btnEditar.Visible = false;
                 lblTotal.Visible=false;
             }
+        }
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+            if (txtPrecio.Tag == null) return;
+
+            decimal precio = (decimal)txtPrecio.Tag;
+            int cantidad;
+
+            if (!int.TryParse(txtCantidad.Text, out cantidad))
+            {
+                txtTotal.Text = "";
+                return;
+            }
+
+            decimal total = precio * cantidad;
+
+            txtTotal.Text = total.ToString("0.00");
+        }
+        private void CargarProductos()
+        {
+            var lista = productoRepo.ObtenerTodos();
+
+            comboProducto.DataSource = lista;
+            comboProducto.DisplayMember = "Nombre";
+            comboProducto.ValueMember = "Id";
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -124,8 +160,15 @@ namespace ProyectoVentas
             }
             else // MODO CREAR
             {
+                if (string.IsNullOrWhiteSpace(txtCliente.Text))
+                {
+                    MessageBox.Show("Ingrese el nombre del cliente");
+                    return;
+                }
+
                 Pedido pedido = new Pedido
                 {
+                    Cliente = txtCliente.Text, 
                     Total = total,
                     MetodoPago = metodoPago.Nombre,
                     Usuario = usuario
@@ -246,15 +289,42 @@ namespace ProyectoVentas
             int id = (int)dgvPedidos.CurrentRow.Cells["Id"].Value;
             decimal total = (decimal)dgvPedidos.CurrentRow.Cells["Total"].Value;
             string metodo = dgvPedidos.CurrentRow.Cells["MetodoPago"].Value.ToString();
+            string cliente = dgvPedidos.CurrentRow.Cells["Cliente"].Value.ToString(); 
 
             txtTotal.Text = total.ToString();
             cmbPago.Text = metodo;
+            txtCliente.Text = cliente; 
 
             txtTotal.Tag = id;
 
-            btnProcesar.Text = "Actualizar"; 
+            btnProcesar.Text = "Actualizar";
 
             MessageBox.Show("Modo edición activado");
+        }
+
+        private void comboProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboProducto.SelectedItem is Producto producto)
+            {
+                txtPrecio.Text = producto.Precio.ToString();
+                txtStock.Text = producto.Stock.ToString();
+            }
+            Producto p = (Producto)comboProducto.SelectedItem;
+
+            txtPrecio.Text = p.Precio.ToString("0.00");
+
+            txtPrecio.Tag = p.Precio; // 🔥 CLAVE
+            txtCantidad_TextChanged(null, null);
+        }
+
+        private void dgvPedidos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtTotal_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -14,5 +14,7 @@ namespace ProyectoVentas.Models
 
         public string Usuario { get; set; }
 
+        public string Cliente { get; set; }
+
     }
 }

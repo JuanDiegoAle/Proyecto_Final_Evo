@@ -19,12 +19,12 @@ namespace ProyectoVentas.Repository
             {
                 conn.Open();
 
-                string query = "INSERT INTO Pedido (Total, MetodoPago, Usuario)\r\nVALUES (@Total, @MetodoPago, @Usuario)";
+                string query = "INSERT INTO Pedido (Total, MetodoPago, Usuario, Cliente)\r\nVALUES (@Total, @MetodoPago, @Usuario, @Cliente)";
                 SqlCommand cmd=new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Total", pedido.Total);
                 cmd.Parameters.AddWithValue("@MetodoPago", pedido.MetodoPago);
                 cmd.Parameters.AddWithValue("@Usuario", pedido.Usuario);
-
+                cmd.Parameters.AddWithValue("@Cliente", pedido.Cliente);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -49,7 +49,8 @@ namespace ProyectoVentas.Repository
                         Id = (int)reader["Id"],
                         Total = (decimal)reader["Total"],
                         MetodoPago = reader["MetodoPago"].ToString(),
-                        Usuario = reader["Usuario"].ToString() 
+                        Usuario = reader["Usuario"].ToString(),
+                        Cliente = reader["Cliente"].ToString()
                     });
                 }
             }
@@ -109,7 +110,8 @@ namespace ProyectoVentas.Repository
                         Id = (int)reader["Id"],
                         Total = (decimal)reader["Total"],
                         MetodoPago = reader["MetodoPago"].ToString(),
-                        Usuario = reader["Usuario"].ToString()
+                        Usuario = reader["Usuario"].ToString(),
+                        Cliente = reader["Cliente"].ToString()
                     });
                     
                 }
@@ -161,7 +163,7 @@ namespace ProyectoVentas.Repository
                 cmd.Parameters.AddWithValue("@Total", pedido.Total);
                 cmd.Parameters.AddWithValue("@MetodoPago", pedido.MetodoPago);
                 cmd.Parameters.AddWithValue("@Id", pedido.Id);
-
+                cmd.Parameters.AddWithValue("@Cliente", pedido.Cliente);
                 cmd.ExecuteNonQuery();
             }
         }

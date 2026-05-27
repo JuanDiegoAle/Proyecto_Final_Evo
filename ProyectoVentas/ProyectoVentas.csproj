@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IProductoRespository.cs" />
+    <Compile Include="Models\DetallePedido.cs" />
+    <Compile Include="Models\Producto.cs" />
+    <Compile Include="Repository\ProductoRepository.cs" />
     <Compile Include="UI\FormCarga.cs">
       <SubType>Form</SubType>
     </Compile>
