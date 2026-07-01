@@ -11,12 +11,11 @@ namespace ProyectoVentas.Repository
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private string connectionString =
-            "Server=.;Database=VentasDB;Trusted_Connection=True;";
+    
 
         public bool Login(string username, string password)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 
@@ -38,7 +37,7 @@ namespace ProyectoVentas.Repository
 
         public string ObtenerRol(string username)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 

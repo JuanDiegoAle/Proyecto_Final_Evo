@@ -11,11 +11,11 @@ namespace ProyectoVentas.Repository
 {
     public  class PedidoRepository: IPedidoRepository
     {
-        private string connectionString = "Server=.;Database=VentasDB;Trusted_Connection=True;";
+        
 
         public void Guardar(Pedido pedido)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 
@@ -33,7 +33,7 @@ namespace ProyectoVentas.Repository
         {
             List<Pedido> lista = new List<Pedido>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 
@@ -59,7 +59,7 @@ namespace ProyectoVentas.Repository
 
         public void Eliminar(int id)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 
@@ -75,7 +75,7 @@ namespace ProyectoVentas.Repository
 
         public decimal ObtenerTotalVendido()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 
@@ -91,7 +91,7 @@ namespace ProyectoVentas.Repository
         {
             List<Pedido> lista=new List<Pedido>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 
@@ -123,7 +123,7 @@ namespace ProyectoVentas.Repository
         {
             Dictionary<string, int> datos= new Dictionary<string, int>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 
@@ -148,7 +148,7 @@ namespace ProyectoVentas.Repository
 
         public void Actualizar(Pedido pedido)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 

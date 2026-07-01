@@ -11,14 +11,13 @@ namespace ProyectoVentas.Repository
 {
     public  class ProductoRepository :IProductoRespository
     {
-        private string connectionString =
-        "Server=.;Database=VentasDB;Trusted_Connection=True;";
+        
 
         public List<Producto> ObtenerTodos()
         {
             List<Producto> lista = new List<Producto>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
             {
                 conn.Open();
 

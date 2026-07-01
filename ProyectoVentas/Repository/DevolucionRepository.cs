@@ -11,11 +11,11 @@ namespace ProyectoVentas.Repository
 {
     public class DevolucionRepository:IDevolucionRepository
     {
-        private string connectionString = "Server=.;Database=VentasDB;Trusted_Connection=True;";
+        
 
         public void Guardar(Devolucion d)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(ConexionBD.Cadena))
             {
                 con.Open();
                 string query = "INSERT INTO Devolucion (PedidoId, Motivo, Fecha, Usuario) VALUES (@p, @m, @f, @u)";
@@ -34,7 +34,7 @@ namespace ProyectoVentas.Repository
         {
             List<Devolucion> lista = new List<Devolucion>();
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(ConexionBD.Cadena))
             {
                 con.Open();
                 string query = "SELECT * FROM Devolucion";
@@ -60,7 +60,7 @@ namespace ProyectoVentas.Repository
 
         public void Actualizar(Devolucion d)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(ConexionBD.Cadena))
             {
                 con.Open();
                 string query = "UPDATE Devolucion SET PedidoId=@p, Motivo=@m WHERE Id=@id";
@@ -76,7 +76,7 @@ namespace ProyectoVentas.Repository
 
         public void Eliminar(int id)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(ConexionBD.Cadena))
             {
                 con.Open();
                 string query = "DELETE FROM Devolucion WHERE Id=@id";
