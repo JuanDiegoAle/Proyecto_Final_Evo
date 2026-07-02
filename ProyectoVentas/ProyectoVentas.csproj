@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IClienteRepository.cs" />
     <Compile Include="Interfaces\IDevolucionRepository.cs" />
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Devolucion.cs" />
     <Compile Include="Repository\ConexionBD.cs" />
     <Compile Include="Repository\DevolucionRepository.cs" />
