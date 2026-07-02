@@ -49,6 +49,21 @@ CREATE TABLE Devolucion (
 );
 
 -- =========================
+-- CLIENTE
+-- =========================
+CREATE TABLE Cliente (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    DNI VARCHAR(8) NULL,
+    Telefono VARCHAR(15) NULL
+);
+GO
+
+INSERT INTO Cliente (Nombre, DNI, Telefono) VALUES 
+('Ana Lopez', '12345678', '999888777'),
+('Luis Perez', '87654321', '999111222');
+GO
+-- =========================
 -- DATOS DE PRUEBA
 -- =========================
 
