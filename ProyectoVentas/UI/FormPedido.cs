@@ -25,6 +25,7 @@ namespace ProyectoVentas
         private IPagoService pagoService;
         private IPedidoRepository repo;
         private IProductoRespository productoRepo;
+        private IClienteRepository clienteRepo;
 
         public FormPedido(string rolUsuario, string nombreUsuario,IPedidoRepository repository,IPagoService pagoSrv,IProductoRespository productoRepo)
         {
@@ -336,6 +337,18 @@ namespace ProyectoVentas
 
             FormDevolucion form = new FormDevolucion(rol, usuario, repoDev);
             form.ShowDialog();
+        }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            // Instanciamos el repositorio específico de clientes
+            Interfaces.IClienteRepository repoClientes = new Repository.ClienteRepository();
+
+            // Creamos la ventana de clientes pasando el repositorio por el constructor
+            FormClientes formularioClientes = new FormClientes(repoClientes);
+
+            // Abrimos la ventana de forma modal
+            formularioClientes.ShowDialog();
         }
     }
 }

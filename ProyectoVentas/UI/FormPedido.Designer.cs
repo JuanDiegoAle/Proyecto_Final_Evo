@@ -58,6 +58,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtCantidad = new System.Windows.Forms.TextBox();
             this.btnDevolucion = new System.Windows.Forms.Button();
+            this.btnClientes = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -291,7 +293,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(144, 87);
+            this.label7.Location = new System.Drawing.Point(286, 87);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 23;
@@ -299,7 +301,7 @@
             // 
             // txtStock
             // 
-            this.txtStock.Location = new System.Drawing.Point(148, 112);
+            this.txtStock.Location = new System.Drawing.Point(290, 112);
             this.txtStock.Name = "txtStock";
             this.txtStock.ReadOnly = true;
             this.txtStock.Size = new System.Drawing.Size(121, 20);
@@ -324,7 +326,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(278, 87);
+            this.label9.Location = new System.Drawing.Point(287, 157);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(49, 13);
             this.label9.TabIndex = 27;
@@ -332,7 +334,7 @@
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(281, 111);
+            this.txtCantidad.Location = new System.Drawing.Point(290, 181);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(100, 20);
             this.txtCantidad.TabIndex = 28;
@@ -348,11 +350,31 @@
             this.btnDevolucion.UseVisualStyleBackColor = true;
             this.btnDevolucion.Click += new System.EventHandler(this.btnDevolucion_Click);
             // 
+            // btnClientes
+            // 
+            this.btnClientes.Location = new System.Drawing.Point(145, 95);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(93, 37);
+            this.btnClientes.TabIndex = 30;
+            this.btnClientes.Text = "Gestionar Clientes";
+            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(2, 76);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(244, 64);
+            this.groupBox2.TabIndex = 31;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Gestor Cliente";
+            // 
             // FormPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(596, 580);
+            this.Controls.Add(this.btnClientes);
             this.Controls.Add(this.btnDevolucion);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.label9);
@@ -376,6 +398,7 @@
             this.Controls.Add(this.btnProcesar);
             this.Controls.Add(this.cmbPago);
             this.Controls.Add(this.txtTotal);
+            this.Controls.Add(this.groupBox2);
             this.Name = "FormPedido";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -420,6 +443,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.Button btnDevolucion;
+        private System.Windows.Forms.Button btnClientes;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 
