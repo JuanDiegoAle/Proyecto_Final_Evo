@@ -50,5 +50,10 @@ namespace ProyectoVentas
 
             chartVentas.Series.Add(serie);
         }
+
+        private void chartVentas_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
