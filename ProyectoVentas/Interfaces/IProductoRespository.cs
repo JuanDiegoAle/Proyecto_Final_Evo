@@ -9,6 +9,9 @@ namespace ProyectoVentas.Interfaces
 {
     public interface IProductoRespository
     {
+        void Guardar (Producto producto);
+        void Actualizar (Producto producto);
+        void Eliminar (int id);
         List<Producto> ObtenerTodos();
     }
 }
