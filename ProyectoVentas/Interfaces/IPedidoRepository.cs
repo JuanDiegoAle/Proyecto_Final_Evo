@@ -17,7 +17,6 @@ namespace ProyectoVentas.Interfaces
         List<Pedido> FiltarPorMetodo(string metodo);
         decimal ObtenerTotalVendido();
 
-        decimal ObtenerTotalVendido();
         Dictionary<string, decimal> ObtenerVentasPorVendedor();
         Dictionary<string, int> ObtenerMetodosPagoEstadistica(); 
     }
