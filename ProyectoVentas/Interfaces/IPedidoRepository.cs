@@ -19,6 +19,6 @@ namespace ProyectoVentas.Interfaces
 
         decimal ObtenerTotalVendido();
         Dictionary<string, decimal> ObtenerVentasPorVendedor();
-        Dictionary<string, int> ObtenerMetodosPagoEstadistica();
+        Dictionary<string, int> ObtenerMetodosPagoEstadistica(); 
     }
 }
