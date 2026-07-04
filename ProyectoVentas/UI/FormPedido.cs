@@ -57,7 +57,7 @@ namespace ProyectoVentas
            
             CargarProductos();
 
-            if (rol == "vendedor")
+            if (rol == "Vendedor")
             {
                 btnEliminar.Enabled = false;
                 btnTotal.Enabled = false;
