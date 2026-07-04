@@ -32,5 +32,15 @@ namespace ProyectoVentas
             dgvClientes.DataSource=repo.ObtenerTodos();
             dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtNombre.Text="";
+            txtDni.Text="";
+            txtTelefono.Text="";
+            // Usaremos la propiedad Tag del txtNombre para guardar el ID del cliente ocultamente cuando queramos editar
+            txtNombre.Tag = null;
+            btnGuardar.Text = "Guardar";
+        }
     }
 }
