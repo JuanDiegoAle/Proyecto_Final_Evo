@@ -1,175 +1,180 @@
-﻿using ProyectoVentas.Interfaces;
-using ProyectoVentas.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProyectoVentas.Interfaces;
+using ProyectoVentas.Models;
 
 namespace ProyectoVentas.Repository
 {
-    public  class PedidoRepository: IPedidoRepository
+    public class PedidoRepository : IPedidoRepository
     {
-        
+        // ==========================================
+        // OPERACIONES CRUD
+        // ==========================================
 
         public void Guardar(Pedido pedido)
         {
-            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
-            {
-                conn.Open();
+            const string query = "INSERT INTO Pedido (Total, MetodoPago, Usuario, Cliente) " +
+                                 "VALUES (@Total, @MetodoPago, @Usuario, @Cliente)";
 
-                string query = "INSERT INTO Pedido (Total, MetodoPago, Usuario, Cliente)\r\nVALUES (@Total, @MetodoPago, @Usuario, @Cliente)";
-                SqlCommand cmd=new SqlCommand(query, conn);
+            using (var conn = new SqlConnection(ConexionBD.Cadena))
+            using (var cmd = new SqlCommand(query, conn))
+            {
                 cmd.Parameters.AddWithValue("@Total", pedido.Total);
                 cmd.Parameters.AddWithValue("@MetodoPago", pedido.MetodoPago);
                 cmd.Parameters.AddWithValue("@Usuario", pedido.Usuario);
                 cmd.Parameters.AddWithValue("@Cliente", pedido.Cliente);
+
+                conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }
 
         public List<Pedido> ObtenerTodos()
         {
-            List<Pedido> lista = new List<Pedido>();
+            var lista = new List<Pedido>();
+            const string query = "SELECT Id, Total, MetodoPago, Usuario, Cliente FROM Pedido";
 
-            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
+            using (var conn = new SqlConnection(ConexionBD.Cadena))
+            using (var cmd = new SqlCommand(query, conn))
             {
                 conn.Open();
-
-                string query = "SELECT * FROM Pedido";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (var reader = cmd.ExecuteReader())
                 {
-                    lista.Add(new Pedido
+                    while (reader.Read())
                     {
-                        Id = (int)reader["Id"],
-                        Total = (decimal)reader["Total"],
-                        MetodoPago = reader["MetodoPago"].ToString(),
-                        Usuario = reader["Usuario"].ToString(),
-                        Cliente = reader["Cliente"].ToString()
-                    });
+                        lista.Add(MapearPedido(reader));
+                    }
                 }
             }
             return lista;
-        }
-
-        public void Eliminar(int id)
-        {
-            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
-            {
-                conn.Open();
-
-                string query = "DELETE FROM Pedido WHERE Id=@Id";
-
-                SqlCommand cmd=new SqlCommand(query,conn);
-
-                cmd.Parameters.AddWithValue("@Id", id);
-
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public decimal ObtenerTotalVendido()
-        {
-            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
-            {
-                conn.Open();
-
-                string query = "SELECT ISNULL(SUM(Total),0) FROM Pedido";
-
-                SqlCommand cmd=new SqlCommand(query,conn); 
-
-                return (decimal)cmd.ExecuteScalar();
-            }
         }
 
         public List<Pedido> FiltarPorMetodo(string metodo)
         {
-            List<Pedido> lista=new List<Pedido>();
+            var lista = new List<Pedido>();
+            const string query = "SELECT Id, Total, MetodoPago, Usuario, Cliente FROM Pedido WHERE MetodoPago = @Metodo";
 
-            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
+            using (var conn = new SqlConnection(ConexionBD.Cadena))
+            using (var cmd = new SqlCommand(query, conn))
             {
-                conn.Open();
-
-                string query = "SELECT * FROM Pedido WHERE MetodoPago=@Metodo";
-
-                SqlCommand cmd=new SqlCommand(query,conn);
-
                 cmd.Parameters.AddWithValue("@Metodo", metodo);
 
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
                 {
-                    lista.Add(new Pedido
+                    while (reader.Read())
                     {
-                        Id = (int)reader["Id"],
-                        Total = (decimal)reader["Total"],
-                        MetodoPago = reader["MetodoPago"].ToString(),
-                        Usuario = reader["Usuario"].ToString(),
-                        Cliente = reader["Cliente"].ToString()
-                    });
-                    
+                        lista.Add(MapearPedido(reader));
+                    }
                 }
             }
             return lista;
         }
 
-        public Dictionary<string, int> ObtenerCantidadPorMetodo()
+        public void Actualizar(Pedido pedido)
         {
-            Dictionary<string, int> datos= new Dictionary<string, int>();
+            const string query = "UPDATE Pedido SET Total = @Total, MetodoPago = @MetodoPago, " +
+                                 "Cliente = @Cliente, Usuario = @Usuario WHERE Id = @Id";
 
-            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
+            using (var conn = new SqlConnection(ConexionBD.Cadena))
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@Total", pedido.Total);
+                cmd.Parameters.AddWithValue("@MetodoPago", pedido.MetodoPago);
+                cmd.Parameters.AddWithValue("@Cliente", pedido.Cliente);
+                cmd.Parameters.AddWithValue("@Usuario", pedido.Usuario);
+                cmd.Parameters.AddWithValue("@Id", pedido.Id);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            const string query = "DELETE FROM Pedido WHERE Id = @Id";
+
+            using (var conn = new SqlConnection(ConexionBD.Cadena))
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // ==========================================
+        // MÉTODOS ESTADÍSTICOS / REPORTES
+        // ==========================================
+
+        public decimal ObtenerTotalVendido()
+        {
+            const string query = "SELECT ISNULL(SUM(Total), 0) FROM Pedido";
+
+            using (var conn = new SqlConnection(ConexionBD.Cadena))
+            using (var cmd = new SqlCommand(query, conn))
             {
                 conn.Open();
+                return Convert.ToDecimal(cmd.ExecuteScalar());
+            }
+        }
 
-                string query = @"SELECT MetodoPago, COUNT(*) AS Cantidad
-                   FROM Pedido
-                   GROUP BY MetodoPago";
+        public Dictionary<string, int> ObtenerCantidadPorMetodo()
+        {
+            var datos = new Dictionary<string, int>();
+            const string query = "SELECT MetodoPago, COUNT(*) AS Cantidad FROM Pedido GROUP BY MetodoPago";
 
-                SqlCommand cmd=new SqlCommand(query,conn);
-
-                SqlDataReader reader= cmd.ExecuteReader();
-
-                while (reader.Read())
+            using (var conn = new SqlConnection(ConexionBD.Cadena))
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
                 {
-                    string metodo = reader["MetodoPago"].ToString();
-                    int cantidad = (int)reader["Cantidad"];
-
-                    datos.Add(metodo, cantidad);   
+                    while (reader.Read())
+                    {
+                        datos.Add(reader["MetodoPago"].ToString(), (int)reader["Cantidad"]);
+                    }
                 }
             }
             return datos;
         }
 
-        public void Actualizar(Pedido pedido)
+        public Dictionary<string, decimal> ObtenerVentasPorVendedor()
         {
-            using (SqlConnection conn = new SqlConnection(ConexionBD.Cadena))
+            var datos = new Dictionary<string, decimal>();
+            const string query = "SELECT Usuario, SUM(Total) AS TotalVendido FROM Pedido GROUP BY Usuario";
+
+            using (var conn = new SqlConnection(ConexionBD.Cadena))
+            using (var cmd = new SqlCommand(query, conn))
             {
                 conn.Open();
-
-                string query = @"
-            UPDATE Pedido
-            SET Total = @Total,
-                MetodoPago = @MetodoPago,
-                Cliente = @Cliente,
-                Usuario = @Usuario
-            WHERE Id = @Id";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@Total", pedido.Total);
-                cmd.Parameters.AddWithValue("@MetodoPago", pedido.MetodoPago);
-                cmd.Parameters.AddWithValue("@Cliente", pedido.Cliente); 
-                cmd.Parameters.AddWithValue("@Usuario", pedido.Usuario);
-                cmd.Parameters.AddWithValue("@Id", pedido.Id);
-
-                cmd.ExecuteNonQuery();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        datos.Add(reader["Usuario"].ToString(), (decimal)reader["TotalVendido"]);
+                    }
+                }
             }
+            return datos;
+        }
+
+        // ==========================================
+        // MÉTODOS AUXILIARES (HELPERS)
+        // ==========================================
+
+        private Pedido MapearPedido(SqlDataReader reader)
+        {
+            return new Pedido
+            {
+                Id = (int)reader["Id"],
+                Total = (decimal)reader["Total"],
+                MetodoPago = reader["MetodoPago"].ToString(),
+                Usuario = reader["Usuario"].ToString(),
+                Cliente = reader["Cliente"].ToString()
+            };
         }
     }
 }
