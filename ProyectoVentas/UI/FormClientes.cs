@@ -1,4 +1,5 @@
 ﻿using ProyectoVentas.Interfaces;
+using ProyectoVentas.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,6 +42,43 @@ namespace ProyectoVentas
             // Usaremos la propiedad Tag del txtNombre para guardar el ID del cliente ocultamente cuando queramos editar
             txtNombre.Tag = null;
             btnGuardar.Text = "Guardar";
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                MessageBox.Show("El nombre del cliente es obligatorio.");
+                return;
+            }
+
+           
+            Cliente c = new Cliente
+            {
+                Nombre = txtNombre.Text,
+                DNI = txtDni.Text,
+                Telefono = txtTelefono.Text
+            };
+
+            
+            if (txtNombre.Tag != null)
+            {
+               
+                c.Id = (int)txtNombre.Tag;
+                repo.Actualizar(c);
+                MessageBox.Show("Cliente actualizado correctamente");
+            }
+            else
+            {
+                
+                repo.Guardar(c);
+                MessageBox.Show("Cliente registrado correctamente");
+            }
+
+            
+            CargarClientes();
+            btnLimpiar_Click(null, null);
         }
     }
 }

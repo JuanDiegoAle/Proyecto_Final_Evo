@@ -71,6 +71,7 @@
             // txtDni
             // 
             this.txtDni.Location = new System.Drawing.Point(127, 108);
+            this.txtDni.MaxLength = 7;
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(100, 20);
             this.txtDni.TabIndex = 3;
@@ -90,6 +91,7 @@
             this.btnGuardar.TabIndex = 5;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnEditar
             // 
