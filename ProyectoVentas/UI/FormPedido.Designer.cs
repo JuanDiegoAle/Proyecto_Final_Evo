@@ -58,6 +58,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtCantidad = new System.Windows.Forms.TextBox();
             this.btnDevolucion = new System.Windows.Forms.Button();
+            this.btnProductos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -348,11 +349,22 @@
             this.btnDevolucion.UseVisualStyleBackColor = true;
             this.btnDevolucion.Click += new System.EventHandler(this.btnDevolucion_Click);
             // 
+            // btnProductos
+            // 
+            this.btnProductos.Location = new System.Drawing.Point(145, 268);
+            this.btnProductos.Name = "btnProductos";
+            this.btnProductos.Size = new System.Drawing.Size(121, 23);
+            this.btnProductos.TabIndex = 30;
+            this.btnProductos.Text = "Gestionar Productos";
+            this.btnProductos.UseVisualStyleBackColor = true;
+            this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
+            // 
             // FormPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(596, 580);
+            this.Controls.Add(this.btnProductos);
             this.Controls.Add(this.btnDevolucion);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.label9);
@@ -420,6 +432,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.Button btnDevolucion;
+        private System.Windows.Forms.Button btnProductos;
     }
 }
 

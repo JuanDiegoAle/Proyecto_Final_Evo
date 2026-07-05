@@ -5,6 +5,7 @@ using ProyectoVentas.Repository;
 using ProyectoVentas.Service;
 using ProyectoVentas.Service.Pagos;
 using ProyectoVentas.Services;
+using ProyectoVentas.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -335,6 +336,14 @@ namespace ProyectoVentas
             IDevolucionRepository repoDev = new DevolucionRepository();
 
             FormDevolucion form = new FormDevolucion(rol, usuario, repoDev);
+            form.ShowDialog();
+        }
+
+        private void btnProductos_Click(object sender, EventArgs e)
+        {
+            IProductoRespository repoDev = new ProductoRepository();
+
+            FormProductos form = new FormProductos(repoDev);
             form.ShowDialog();
         }
     }
