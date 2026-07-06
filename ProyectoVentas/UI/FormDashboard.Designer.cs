@@ -1,3 +1,5 @@
+using System;
+
 namespace ProyectoVentas
 {
     partial class FormDashboard
@@ -19,17 +21,19 @@ namespace ProyectoVentas
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblTotalVendidoTitulo = new System.Windows.Forms.Label();
             this.lblTotalVendido = new System.Windows.Forms.Label();
             this.lblMejorVendedorTitulo = new System.Windows.Forms.Label();
             this.lblMejorVendedor = new System.Windows.Forms.Label();
-            this.chartMetodoPago = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartVendedores = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.chartMetodoPago)).BeginInit();
+            this.chartMetodoPago = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chartVendedores)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartMetodoPago)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -85,39 +89,47 @@ namespace ProyectoVentas
             this.lblMejorVendedor.TabIndex = 4;
             this.lblMejorVendedor.Text = "Sin ventas registradas";
             // 
-            // chartMetodoPago
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chartMetodoPago.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartMetodoPago.Legends.Add(legend1);
-            this.chartMetodoPago.Location = new System.Drawing.Point(30, 270);
-            this.chartMetodoPago.Name = "chartMetodoPago";
-            this.chartMetodoPago.Size = new System.Drawing.Size(380, 220);
-            this.chartMetodoPago.TabIndex = 5;
-            this.chartMetodoPago.Text = "chartMetodoPago";
-            this.chartMetodoPago.Click += new System.EventHandler(this.chartMetodoPago_Click);
-            // 
             // chartVendedores
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartVendedores.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartVendedores.Legends.Add(legend2);
-            this.chartVendedores.Location = new System.Drawing.Point(430, 270);
+            chartArea1.Name = "ChartArea1";
+            this.chartVendedores.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartVendedores.Legends.Add(legend1);
+            this.chartVendedores.Location = new System.Drawing.Point(525, 256);
             this.chartVendedores.Name = "chartVendedores";
-            this.chartVendedores.Size = new System.Drawing.Size(380, 220);
-            this.chartVendedores.TabIndex = 6;
-            this.chartVendedores.Text = "chartVendedores";
-            this.chartVendedores.Click += new System.EventHandler(this.chartVendedores_Click);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartVendedores.Series.Add(series1);
+            this.chartVendedores.Size = new System.Drawing.Size(300, 300);
+            this.chartVendedores.TabIndex = 5;
+            this.chartVendedores.Text = "chart1";
+            this.chartVendedores.Click += new System.EventHandler(this.chart1_Click);
+            // 
+            // chartMetodoPago
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chartMetodoPago.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartMetodoPago.Legends.Add(legend2);
+            this.chartMetodoPago.Location = new System.Drawing.Point(81, 256);
+            this.chartMetodoPago.Name = "chartMetodoPago";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartMetodoPago.Series.Add(series2);
+            this.chartMetodoPago.Size = new System.Drawing.Size(300, 300);
+            this.chartMetodoPago.TabIndex = 6;
+            this.chartMetodoPago.Text = "chart2";
+            this.chartMetodoPago.Click += new System.EventHandler(this.chartMetodoPago_Click_1);
             // 
             // FormDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(850, 510);
-            this.Controls.Add(this.chartVendedores);
+            this.ClientSize = new System.Drawing.Size(858, 590);
             this.Controls.Add(this.chartMetodoPago);
+            this.Controls.Add(this.chartVendedores);
             this.Controls.Add(this.lblMejorVendedor);
             this.Controls.Add(this.lblMejorVendedorTitulo);
             this.Controls.Add(this.lblTotalVendido);
@@ -126,11 +138,21 @@ namespace ProyectoVentas
             this.Name = "FormDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dashboard - KPIs";
-            ((System.ComponentModel.ISupportInitialize)(this.chartMetodoPago)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartVendedores)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartMetodoPago)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void chartMetodoPago_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void chartVendedores_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -140,7 +162,7 @@ namespace ProyectoVentas
         private System.Windows.Forms.Label lblTotalVendido;
         private System.Windows.Forms.Label lblMejorVendedorTitulo;
         private System.Windows.Forms.Label lblMejorVendedor;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartMetodoPago;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartVendedores;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartMetodoPago;
     }
 }

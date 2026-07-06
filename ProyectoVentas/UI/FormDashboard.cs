@@ -64,5 +64,15 @@ namespace ProyectoVentas
                 serieBarras.Points.AddXY(item.Key, item.Value);
             }
         }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chartMetodoPago_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
