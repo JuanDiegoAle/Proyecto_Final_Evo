@@ -14,6 +14,7 @@ namespace ProyectoVentas
 {
     public partial class FormClientes : Form
     {
+        public string ClienteSeleccionado { get; private set; }
         private IClienteRepository repo;
         public FormClientes(IClienteRepository repository)
         {
@@ -46,14 +47,13 @@ namespace ProyectoVentas
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            
+
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
                 MessageBox.Show("El nombre del cliente es obligatorio.");
                 return;
             }
 
-           
             Cliente c = new Cliente
             {
                 Nombre = txtNombre.Text,
@@ -61,24 +61,23 @@ namespace ProyectoVentas
                 Telefono = txtTelefono.Text
             };
 
-            
             if (txtNombre.Tag != null)
             {
-               
+                // Modo Edición
                 c.Id = (int)txtNombre.Tag;
                 repo.Actualizar(c);
                 MessageBox.Show("Cliente actualizado correctamente");
             }
             else
             {
-                
+                // Modo Nuevo
                 repo.Guardar(c);
                 MessageBox.Show("Cliente registrado correctamente");
             }
 
-            
-            CargarClientes();
-            btnLimpiar_Click(null, null);
+            this.ClienteSeleccionado = txtNombre.Text;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -96,6 +95,31 @@ namespace ProyectoVentas
 
                 
                 btnGuardar.Text = "Actualizar";
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            // Verificamos si el usuario seleccionó una fila completa
+            if (dgvClientes.SelectedRows.Count > 0)
+            {
+                // Pedimos confirmación para evitar borrados accidentales
+                DialogResult respuesta = MessageBox.Show("¿Estás seguro de eliminar este cliente?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    int idSeleccionado = (int)dgvClientes.SelectedRows[0].Cells["Id"].Value;
+                    repo.Eliminar(idSeleccionado);
+                    MessageBox.Show("Cliente eliminado correctamente.");
+
+                    // Refrescamos la tabla y limpiamos
+                    CargarClientes();
+                    btnLimpiar_Click(null, null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione toda la fila del cliente que desea eliminar.");
             }
         }
     }

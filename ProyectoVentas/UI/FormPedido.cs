@@ -347,8 +347,12 @@ namespace ProyectoVentas
             // Creamos la ventana de clientes pasando el repositorio por el constructor
             FormClientes formularioClientes = new FormClientes(repoClientes);
 
-            // Abrimos la ventana de forma modal
-            formularioClientes.ShowDialog();
+            // Abrimos la ventana de forma modal y verificamos si se guardó un cliente nuevo
+            if (formularioClientes.ShowDialog() == DialogResult.OK)
+            {
+                // Atrapamos el dato de la variable pública y lo ponemos en la caja de texto
+                txtCliente.Text = formularioClientes.ClienteSeleccionado;
+            }
         }
     }
 }
