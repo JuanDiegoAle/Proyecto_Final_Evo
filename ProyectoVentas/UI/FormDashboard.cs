@@ -2,6 +2,7 @@ using ProyectoVentas.Interfaces;
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProyectoVentas
 {
@@ -19,6 +20,7 @@ namespace ProyectoVentas
         private void FormDashboard_Load(object sender, EventArgs e)
         {
             CargarKPIs();
+            CargarGraficos();
         }
 
         private void CargarKPIs()
@@ -35,6 +37,31 @@ namespace ProyectoVentas
             else
             {
                 lblMejorVendedor.Text = "Sin ventas registradas";
+            }
+        }
+
+        private void CargarGraficos()
+        {
+            chartMetodoPago.Series.Clear();
+            var seriePastel = chartMetodoPago.Series.Add("Pagos");
+            seriePastel.ChartType = SeriesChartType.Pie;
+            seriePastel.IsValueShownAsLabel = true;
+
+            var datosPago = repo.ObtenerMetodosPagoEstadistica();
+            foreach (var item in datosPago)
+            {
+                seriePastel.Points.AddXY(item.Key, item.Value);
+            }
+
+            chartVendedores.Series.Clear();
+            var serieBarras = chartVendedores.Series.Add("Ventas Totales");
+            serieBarras.ChartType = SeriesChartType.Column;
+            serieBarras.IsValueShownAsLabel = true;
+
+            var datosVendedor = repo.ObtenerVentasPorVendedor();
+            foreach (var item in datosVendedor)
+            {
+                serieBarras.Points.AddXY(item.Key, item.Value);
             }
         }
     }
