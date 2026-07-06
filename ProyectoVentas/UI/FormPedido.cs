@@ -252,7 +252,7 @@ namespace ProyectoVentas
 
         private void btnAbrirGrafico_Click(object sender, EventArgs e)
         {
-            FormGrafico grafico=new FormGrafico();
+            FormDashboard grafico=new FormDashboard(repo);
 
             grafico.ShowDialog();
         }
