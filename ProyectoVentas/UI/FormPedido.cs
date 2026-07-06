@@ -339,12 +339,5 @@ namespace ProyectoVentas
             form.ShowDialog();
         }
 
-        private void btnProductos_Click(object sender, EventArgs e)
-        {
-            IProductoRespository repoDev = new ProductoRepository();
-
-            FormProductos form = new FormProductos(repoDev);
-            form.ShowDialog();
-        }
     }
 }
