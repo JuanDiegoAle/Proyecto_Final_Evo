@@ -20,7 +20,7 @@ namespace ProyectoVentas.UI
 {
     public partial class FormProductos : Form
     {
-        private IProductoRespository repo;  
+        private IProductoRespository repo;
 
         public FormProductos(IProductoRespository repository)
         {
@@ -47,6 +47,74 @@ namespace ProyectoVentas.UI
             txtPrecio.Text = "";
             txtStock.Text = "";
             txtNombre.Tag = null; // Limpiamos el ID oculto
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtPrecio.Text) || string.IsNullOrWhiteSpace(txtStock.Text))
+            {
+                MessageBox.Show("Todos los campos son obligatorios.");
+                return;
+            }
+
+            Producto p = new Producto
+            {
+                Nombre = txtNombre.Text,
+                Precio = Convert.ToDecimal(txtPrecio.Text),
+                Stock = Convert.ToInt32(txtStock.Text)
+            };
+
+            if (txtNombre.Tag != null) // Si hay un ID oculto, actualiza
+            {
+                p.Id = (int)txtNombre.Tag;
+                repo.Actualizar(p);
+                MessageBox.Show("Producto actualizado correctamente.");
+            }
+            else // Si no hay ID, crea uno nuevo
+            {
+                repo.Guardar(p);
+                MessageBox.Show("Producto registrado con éxito.");
+            }
+        }
+
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
+        {
+            txtNombre.Text = "";
+            txtPrecio.Text = "";
+            txtStock.Text = "";
+            txtNombre.Tag = null; // Limpiamos el ID oculto
+        }
+
+        private void dgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvProductos.SelectedRows.Count > 0)
+            {
+                int idSeleccionado = (int)dgvProductos.SelectedRows[0].Cells["Id"].Value;
+                repo.Eliminar(idSeleccionado);
+                MessageBox.Show("Producto Eliminado.");
+                btnLimpiar_Click(null, null);
+                CargarProductos();
+            }
+            else { MessageBox.Show("Seleccione toda la fila del producto a eliminar."); }
+        }
+
+        private void dgvProductos_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                txtNombre.Tag = dgvProductos.Rows[e.RowIndex].Cells["Id"].Value; // Guarda el ID oculto
+                txtNombre.Text = dgvProductos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
+                txtPrecio.Text = dgvProductos.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
+                txtStock.Text = dgvProductos.Rows[e.RowIndex].Cells["Stock"].Value.ToString();
+            }
         }
     }
 }
