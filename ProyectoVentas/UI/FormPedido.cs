@@ -5,6 +5,7 @@ using ProyectoVentas.Repository;
 using ProyectoVentas.Service;
 using ProyectoVentas.Service.Pagos;
 using ProyectoVentas.Services;
+using ProyectoVentas.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,7 +59,7 @@ namespace ProyectoVentas
            
             CargarProductos();
 
-            if (rol == "vendedor")
+            if (rol == "Vendedor")
             {
                 btnEliminar.Enabled = false;
                 btnTotal.Enabled = false;
@@ -308,17 +309,18 @@ namespace ProyectoVentas
 
         private void comboProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboProducto.SelectedItem is Producto producto)
+            
+            if (comboProducto.SelectedItem is Producto p)
             {
-                txtPrecio.Text = producto.Precio.ToString();
-                txtStock.Text = producto.Stock.ToString();
+                txtPrecio.Text = p.Precio.ToString("0.00");
+                txtStock.Text = p.Stock.ToString();
+
+                
+                txtPrecio.Tag = p.Precio;
+
+                
+                txtCantidad_TextChanged(null, null);
             }
-            Producto p = (Producto)comboProducto.SelectedItem;
-
-            txtPrecio.Text = p.Precio.ToString("0.00");
-
-            txtPrecio.Tag = p.Precio; 
-            txtCantidad_TextChanged(null, null);
         }
 
         private void dgvPedidos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -342,7 +344,7 @@ namespace ProyectoVentas
         private void btnClientes_Click(object sender, EventArgs e)
         {
             // Instanciamos el repositorio específico de clientes
-            Interfaces.IClienteRepository repoClientes = new Repository.ClienteRepository();
+            IClienteRepository repoClientes = new Repository.ClienteRepository();
 
             // Creamos la ventana de clientes pasando el repositorio por el constructor
             FormClientes formularioClientes = new FormClientes(repoClientes);
@@ -353,6 +355,19 @@ namespace ProyectoVentas
                 // Atrapamos el dato de la variable pública y lo ponemos en la caja de texto
                 txtCliente.Text = formularioClientes.ClienteSeleccionado;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Instanciamos el repositorio específico de productos
+            IProductoRespository repoProductos = new Repository.ProductoRepository();
+
+            // Creamos la ventana de productos pasando el repositorio por el constructor
+            FormProductos formularioProductos = new FormProductos(repoProductos);
+
+            // Abrimos la ventana de forma modal
+            formularioProductos.ShowDialog();
+            CargarProductos();
         }
     }
 }
