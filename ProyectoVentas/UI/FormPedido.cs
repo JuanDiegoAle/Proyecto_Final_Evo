@@ -370,5 +370,6 @@ namespace ProyectoVentas
             CargarProductos();
         }
 
+
     }
 }
