@@ -369,5 +369,6 @@ namespace ProyectoVentas
             formularioProductos.ShowDialog();
             CargarProductos();
         }
+
     }
 }
