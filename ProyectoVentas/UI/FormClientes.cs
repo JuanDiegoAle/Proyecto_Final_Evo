@@ -80,5 +80,23 @@ namespace ProyectoVentas
             CargarClientes();
             btnLimpiar_Click(null, null);
         }
+
+        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            if (e.RowIndex >= 0)
+            {
+                
+                txtNombre.Tag = dgvClientes.Rows[e.RowIndex].Cells["Id"].Value;
+
+                
+                txtNombre.Text = dgvClientes.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
+                txtDni.Text = dgvClientes.Rows[e.RowIndex].Cells["DNI"].Value.ToString();
+                txtTelefono.Text = dgvClientes.Rows[e.RowIndex].Cells["Telefono"].Value.ToString();
+
+                
+                btnGuardar.Text = "Actualizar";
+            }
+        }
     }
 }
