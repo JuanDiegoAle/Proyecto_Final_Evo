@@ -62,6 +62,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnGestionarUsuarios = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -141,7 +142,7 @@
             this.dgvPedidos.Location = new System.Drawing.Point(22, 297);
             this.dgvPedidos.Name = "dgvPedidos";
             this.dgvPedidos.ReadOnly = true;
-            this.dgvPedidos.Size = new System.Drawing.Size(532, 271);
+            this.dgvPedidos.Size = new System.Drawing.Size(532, 298);
             this.dgvPedidos.TabIndex = 7;
             this.dgvPedidos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidos_CellContentClick);
             // 
@@ -244,6 +245,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnGestionarUsuarios);
             this.groupBox1.Controls.Add(this.btnEditar);
             this.groupBox1.Controls.Add(this.btnExportar);
             this.groupBox1.Controls.Add(this.btnAbrirGrafico);
@@ -253,7 +255,7 @@
             this.groupBox1.Controls.Add(this.btnListar);
             this.groupBox1.Location = new System.Drawing.Point(560, 297);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(111, 271);
+            this.groupBox1.Size = new System.Drawing.Size(111, 298);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "RECURSOS";
@@ -392,6 +394,16 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnGestionarUsuarios
+            // 
+            this.btnGestionarUsuarios.Location = new System.Drawing.Point(18, 255);
+            this.btnGestionarUsuarios.Name = "btnGestionarUsuarios";
+            this.btnGestionarUsuarios.Size = new System.Drawing.Size(75, 37);
+            this.btnGestionarUsuarios.TabIndex = 17;
+            this.btnGestionarUsuarios.Text = "Gestionar Usuarios";
+            this.btnGestionarUsuarios.UseVisualStyleBackColor = true;
+            this.btnGestionarUsuarios.Click += new System.EventHandler(this.btnGestionarUsuarios_Click);
+            // 
             // FormPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -472,6 +484,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGestionarUsuarios;
     }
 }
 
