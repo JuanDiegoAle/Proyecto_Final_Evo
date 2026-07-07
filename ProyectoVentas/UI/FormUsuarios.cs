@@ -33,7 +33,39 @@ namespace ProyectoVentas.UI
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                MessageBox.Show("Usuario y contraseña son obligatorios");
+                return;
+            }
+            Usuario u = new Usuario
+            {
+                Username = txtUsername.Text,
+                Password = txtPassword.Text,
+                Rol = string.IsNullOrWhiteSpace(txtRol.Text) ? "Vendedor" : txtRol.Text
 
+            };
+            repo.Guardar(u);
+            MessageBox.Show("Usuario registrado con exito.");
+            txtUsername.Text = "";
+            txtPassword.Text = "";
+            txtRol.Text = "";
+            CargarUsuarios();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvUsuarios.SelectedRows.Count > 0)
+            {
+                int idSeleccionado = (int)dgvUsuarios.SelectedRows[0].Cells["Id"].Value;
+                repo.Eliminar(idSeleccionado);
+                MessageBox.Show("Usuario eliminado correctamente");
+                CargarUsuarios();
+            }
+            else
+            {
+                MessageBox.Show("Por favor,seleccione toda la fila del usuario a eliminar");
+            }
         }
     }
 }
