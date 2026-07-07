@@ -67,6 +67,8 @@ namespace ProyectoVentas
                 btnExportar.Enabled = false;
                 btnEditar.Enabled = false;
                 lblTotal.Enabled=false;
+                btnGestionarUsuarios.Enabled = false;
+                button1.Enabled = false;
             }
         }
         private void txtCantidad_TextChanged(object sender, EventArgs e)
