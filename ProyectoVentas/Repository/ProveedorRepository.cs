@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using ProyectoVentas.Interfaces;
 using ProyectoVentas.Models;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace ProyectoVentas.Repository

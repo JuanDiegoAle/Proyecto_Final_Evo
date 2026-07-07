@@ -53,6 +53,7 @@
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Repository\ConexionBD.cs" />
     <Compile Include="Repository\DevolucionRepository.cs" />
+    <Compile Include="Repository\ProveedorRepository.cs" />
     <Compile Include="UI\FormDevolucion.cs">
       <SubType>Form</SubType>
     </Compile>
