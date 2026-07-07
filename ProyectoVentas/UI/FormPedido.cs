@@ -370,6 +370,11 @@ namespace ProyectoVentas
             CargarProductos();
         }
 
-
+        private void btnGestionarUsuarios_Click(object sender, EventArgs e)
+        {
+            IUsuarioRepository repoUsu=new UsuarioRepository();
+            FormUsuarios formUsuarios=new FormUsuarios(repoUsu);
+            formUsuarios.ShowDialog();
+        }
     }
 }
